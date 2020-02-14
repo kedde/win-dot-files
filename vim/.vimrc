@@ -38,6 +38,17 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+nmap <leader>ne :NERDTree<cr>
+nmap <silent> <leader>ge :GitGutterEnable<cr>
+nmap <silent> <leader>gg :GitGutterToggle<cr>
+nmap <space>gb :Gblame<cr>
+nmap <space>gs :Gstatus<cr>
+nmap <space>gc :Gcommit -v<cr>
+nmap <space>ga :Git add -p<cr>
+nmap <space>gm :Gcommit --amend<cr>
+nmap <space>gp :Gpush<cr>
+nmap <space>gd :Gdiff<cr>
+nmap <space>gw :Gwrite<cr>
 
 set pastetoggle=<F2>
 
@@ -48,4 +59,6 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
+Plug 'sodapopcan/vim-twiggy'
+Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
 call plug#end()
