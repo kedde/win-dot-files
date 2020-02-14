@@ -40,3 +40,12 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 set pastetoggle=<F2>
+
+call plug#begin('~/.vim/plugged')
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Use release branch (Recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+call plug#end()
