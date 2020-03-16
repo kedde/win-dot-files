@@ -1,6 +1,7 @@
 #Include %A_ScriptDir%\DesktopSwitcher.ahk
 #Include %A_ScriptDir%\MouseBehaviour.ahk
 #Include %A_ScriptDir%\WindowGrid.ahk
+#Include %A_ScriptDir%\RemoteDesktopHelper.ahk
 
 win_is_desktop(HWND)
 {
