@@ -1,5 +1,28 @@
 ; https://www.computerhope.com/tips/tip224.htm
 
+; This section binds the key combo to the switch/create/delete actions
+LWin & 1::switchDesktopByNumber(1)
+LWin & 2::switchDesktopByNumber(2)
+LWin & 3::switchDesktopByNumber(3)
+LWin & 4::switchDesktopByNumber(4)
+LWin & 5::switchDesktopByNumber(5)
+LWin & 6::switchDesktopByNumber(6)
+LWin & 7::switchDesktopByNumber(7)
+LWin & 8::switchDesktopByNumber(8)
+LWin & 9::switchDesktopByNumber(9)
+;CapsLock & n::switchDesktopByNumber(CurrentDesktop + 1)
+;CapsLock & p::switchDesktopByNumber(CurrentDesktop - 1)
+;CapsLock & s::switchDesktopByNumber(CurrentDesktop + 1)
+;CapsLock & a::switchDesktopByNumber(CurrentDesktop - 1)
+;CapsLock & c::createVirtualDesktop()
+;CapsLock & d::deleteVirtualDesktop()
+; Alternate keys for this config. Adding these because DragonFly (python) doesn't send CapsLock correctly.
+;^!n::switchDesktopByNumber(CurrentDesktop + 1)
+;^!p::switchDesktopByNumber(CurrentDesktop - 1)
+;^!s::switchDesktopByNumber(CurrentDesktop + 1)
+;^!a::switchDesktopByNumber(CurrentDesktop - 1)
+;^!c::createVirtualDesktop()
+;^!d::deleteVirtualDesktop()
 ; Globals
 DesktopCount = 2 ; Windows starts with 2 desktops at boot
 CurrentDesktop = 1 ; Desktop count is 1-indexed (Microsoft numbers them this way)
@@ -118,26 +141,3 @@ SetKeyDelay, 75
 mapDesktopsFromRegistry()
 OutputDebug, [loading] desktops: %DesktopCount% current: %CurrentDesktop%
 ; User config!
-; This section binds the key combo to the switch/create/delete actions
-LWin & 1::switchDesktopByNumber(1)
-LWin & 2::switchDesktopByNumber(2)
-LWin & 3::switchDesktopByNumber(3)
-LWin & 4::switchDesktopByNumber(4)
-LWin & 5::switchDesktopByNumber(5)
-LWin & 6::switchDesktopByNumber(6)
-LWin & 7::switchDesktopByNumber(7)
-LWin & 8::switchDesktopByNumber(8)
-LWin & 9::switchDesktopByNumber(9)
-;CapsLock & n::switchDesktopByNumber(CurrentDesktop + 1)
-;CapsLock & p::switchDesktopByNumber(CurrentDesktop - 1)
-;CapsLock & s::switchDesktopByNumber(CurrentDesktop + 1)
-;CapsLock & a::switchDesktopByNumber(CurrentDesktop - 1)
-;CapsLock & c::createVirtualDesktop()
-;CapsLock & d::deleteVirtualDesktop()
-; Alternate keys for this config. Adding these because DragonFly (python) doesn't send CapsLock correctly.
-;^!n::switchDesktopByNumber(CurrentDesktop + 1)
-;^!p::switchDesktopByNumber(CurrentDesktop - 1)
-;^!s::switchDesktopByNumber(CurrentDesktop + 1)
-;^!a::switchDesktopByNumber(CurrentDesktop - 1)
-;^!c::createVirtualDesktop()
-;^!d::deleteVirtualDesktop()
