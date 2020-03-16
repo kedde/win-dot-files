@@ -32,6 +32,12 @@ set nobackup
 set noswapfile
 
 
+" If the current buffer has never been saved, it will have no name,
+" " call the file browser to save it, otherwise just save it.
+nnoremap <silent> <C-S> :if expand("%") == ""<CR>browse confirm w<CR>else<CR>confirm w<CR>endif<CR>
+" copy paste
+map <C-a> ggVG
+map <C-c> "+y
 " sudo trick w!! - save
 cmap w!! w !sudo tee % >/dev/null
 
