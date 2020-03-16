@@ -1,3 +1,5 @@
+#Include %A_ScriptDir%\DesktopSwitcher.ahk
+
 win_is_desktop(HWND)
 {
     WinGetClass, win_class, ahk_id %HWND%
