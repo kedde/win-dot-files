@@ -17,7 +17,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
     <!+Tab::
         SendInput, {LAlt Down}{PgDn}
     Return
-    
     ;WinKey+D ;show desktop
 	
     Fired:=0
@@ -33,6 +32,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
         send {LAlt Down}{Home Down}run{Home Up}{LAlt up}
     Return
     
+
+    ; alt insert
+    <!Insert::
+        SendInput, {RControl Down}{Insert}{RControl up}
+    Return
+    ; numpad grid
     #Numpad1::
 		SendInput {RControl Down}{Numpad1}{RControl up}
         Fired:=1
@@ -72,40 +77,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
     Return
 
 
-	/*
-	ahk on rdp machine:
-	;; Mapping from the key right control to windows key 
-		>^+D::
-			send #d
-		return
-		>^Numpad9::
-			send #{Numpad9}
-		return
-		>^Numpad8::
-			send #{Numpad8}
-		return
-		>^Numpad7::
-			send #{Numpad7}
-		return
-		>^Numpad6::
-			send #{Numpad6}
-		return
-		>^Numpad5::
-			send #{Numpad5}
-		return
-		>^Numpad3::
-			send #{Numpad3}
-		return
-		>^Numpad2::
-			send #{Numpad2}
-		return
-		>^Numpad1::
-			send #{Numpad1}
-		return
-		>^Numpad0::
-			send #{Numpad0}
-		return
-	*/
     
     ;Windows key
     LWin Up::
