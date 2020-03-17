@@ -74,6 +74,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		SendInput {RControl Down}{Numpad9}{RControl up}
         Fired:=1
 		Return
+    #Numpad0::
+		SendInput {RControl Down}{Numpad0}{RControl up}
+        Fired:=1
+		Return
     Return
 
 
