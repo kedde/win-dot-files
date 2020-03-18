@@ -13,6 +13,9 @@ return
 >^r::
     send #r
 return
+>^a::
+    send #a
+return
 
 ; win+O - outlook
 >^o::
