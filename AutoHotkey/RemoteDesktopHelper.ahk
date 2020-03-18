@@ -31,6 +31,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
         Fired:=1
         send {RControl Down}r{RControl up}
     Return
+    #a::
+        Fired:=1
+        send {RControl Down}a{RControl up}
+    Return
     
     ; program launcher redirect
     #F9::
