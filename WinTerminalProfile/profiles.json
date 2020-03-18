@@ -61,5 +61,21 @@
     ],
     // Add any keybinding overrides to this array.
     // To unbind a default keybinding, set the command to "unbound"
-    "keybindings": []
+    "keybindings": [
+        { "command": "closeWindow", "keys": ["alt+f4"] },
+        // alt+shift+-  alt+shift++
+        { "command": "splitHorizontal", "keys": ["ctrl+æ"]},
+        { "command": "splitVertical", "keys": ["ctrl+\""]}, // 
+        // { "command": "splitHorizontal", "keys": ["ctrl+-"]},
+        // { "command": "splitVertical", "keys": ["ctrl+\\"]},
+        { "command": "closePane", "keys": ["ctrl+f4"] },
+        { "command": "moveFocusLeft", "keys": ["ctrl+shift+left"]},
+        { "command": "moveFocusRight", "keys": ["ctrl+shift+right"]},
+        { "command": "moveFocusUp", "keys": ["ctrl+shift+up"]},
+        { "command": "moveFocusDown", "keys": ["ctrl+shift+down"]},
+        { "command": "resizePaneLeft", "keys": ["ctrl+shift+alt+left"]},
+        { "command": "resizePaneRight", "keys": ["ctrl+shift+alt+right"]},
+        { "command": "resizePaneUp", "keys": ["ctrl+shift+alt+up"]},
+        { "command": "resizePaneDown", "keys": ["ctrl+shift+alt+down"]}
+    ]
 }
