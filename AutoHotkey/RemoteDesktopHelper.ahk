@@ -28,10 +28,33 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
     
     ;WinKey+R ;open run
     #r::
-        Fired = 1
-        send {LAlt Down}{Home Down}run{Home Up}{LAlt up}
+        Fired:=1
+        send {RControl Down}r{RControl up}
     Return
     
+    ; program launcher redirect
+    #F9::
+        Fired:=1
+        SendInput {RControl Down}{F9}{RControl up}
+    Return
+    #F10::
+        Fired:=1
+        SendInput {RControl Down}{F10}{RControl up}
+    Return
+    #F11::
+        Fired:=1
+        SendInput {RControl Down}{F11}{RControl up}
+    Return
+    #F12::
+        Fired:=1
+        SendInput {RControl Down}{F12}{RControl up}
+    Return
+
+    ; win+o
+    #o::
+        Fired:=1
+        SendInput, {RControl Down}o{RControl up}
+    Return
 
     ; alt insert
     <!Insert::
