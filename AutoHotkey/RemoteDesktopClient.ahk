@@ -9,8 +9,31 @@ return
 ; ShowDesktop
 >^+D::
     send #d
-; map the grid layout
 return
+>^r::
+    send #r
+return
+
+; win+O - outlook
+>^o::
+    send {LWin down}{O}{LWin up}
+return
+
+; program launcher
+>^F9::
+    send #F9
+return
+>^F10::
+    send #F10
+return
+>^F11::
+    send #F11
+return
+>^F12::
+    send #F12
+return
+
+; map the grid layout
 >^Numpad9::
     send #{Numpad9}
 return
