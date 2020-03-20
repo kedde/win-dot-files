@@ -9,7 +9,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #IfWinActive ahk_class TscShellContainerClass
     
     ;ALT+TAB
-    
     <!Tab::
         SendInput, {LAlt Down}{PgUp}
     Return
@@ -26,6 +25,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
         Fired:=1
     Return
     
+    #e::
+        Fired:=1
+        send {RControl Down}e{RControl up}
+    Return
     ;WinKey+R ;open run
     #r::
         Fired:=1

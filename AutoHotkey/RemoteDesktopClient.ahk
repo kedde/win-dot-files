@@ -10,11 +10,17 @@ return
 >^+D::
     send #d
 return
+; run dialog
 >^r::
     send #r
 return
+; windows notification
 >^a::
     send #a
+return
+; explorer
+>^e::
+    send #e
 return
 
 ; win+O - outlook
