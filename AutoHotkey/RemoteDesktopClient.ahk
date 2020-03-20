@@ -14,13 +14,15 @@ return
 >^r::
     send #r
 return
+
 ; windows notification
 >^a::
     send #a
 return
+
 ; explorer
 >^e::
-    send #e
+    send {LWin down}{e}{LWin up}
 return
 
 ; win+O - outlook
@@ -28,18 +30,23 @@ return
     send {LWin down}{O}{LWin up}
 return
 
-; program launcher
+; program launchers
+; ===================
+; linqpad
 >^F9::
-    send #F9
+    send {LWin down}{F9}{LWin up}
 return
+; vs code
 >^F10::
-    send #F10
+    send {LWin down}{F10}{LWin up}
 return
+; spotify
 >^F11::
-    send #F11
+    send {LWin down}{F11}{LWin up}
 return
+; windows terminal 
 >^F12::
-    send #F12
+    send {LWin down}{F12}{LWin up}
 return
 
 ; map the grid layout
