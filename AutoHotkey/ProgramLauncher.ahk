@@ -132,7 +132,7 @@ IfWinExist ahk_exe Code.exe
 		}
 }
 else{
-	vsCodePath="C:\Users\"%A_UserName%"\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+	vsCodePath="C:\Users\%A_UserName%\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 	ShellRun(vsCodePath)
 }
 
