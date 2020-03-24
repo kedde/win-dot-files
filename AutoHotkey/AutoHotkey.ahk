@@ -2,6 +2,8 @@
 #Include %A_ScriptDir%\MouseBehaviour.ahk
 #Include %A_ScriptDir%\WindowGrid.ahk
 #Include %A_ScriptDir%\RemoteDesktopHelper.ahk
+#Include %A_ScriptDir%\WindowBehaviour.ahk
+#Include %A_ScriptDir%\ProgramLauncher.ahk
 
 win_is_desktop(HWND)
 {
