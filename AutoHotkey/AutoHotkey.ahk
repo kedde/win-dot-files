@@ -26,6 +26,12 @@ is_equal(a, b, delta = 10)
 ;; map capslock to shift
 Capslock::Esc
 
+;; vim movements alt j + alt k
+; !h::Send,{Left}
+!j::Send,{Down}
+!k::Send,{Up}
+; !l::Send,{Right}
+
 ;; turn off monitors
 #^F1::
 Sleep, 200
