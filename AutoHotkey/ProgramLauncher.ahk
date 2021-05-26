@@ -41,6 +41,15 @@ getVsCodeHwnd(){
 		}
 }
 
+#n::
+FormatTime, CurrentDateYear,, yyyy
+FormatTime, CurrentDateMonth,, MM
+FormatTime, CurrentDateTime,, yyyy-MM-dd
+EnvGet, oneDrive, OneDriveConsumer
+arguments="--title="Note-%CurrentDateTime%"" nvim %oneDrive%\notes\%CurrentDateYear%\%CurrentDateMonth%\%CurrentDateTime%.md"
+ShellRun("wt.exe", arguments, oneDrive)
+return
+
 ;; 
 ;; Toggle linqpad
 #F9:: 
