@@ -2,6 +2,8 @@
 #Include %A_ScriptDir%\MouseBehaviour.ahk
 #Include %A_ScriptDir%\WindowGrid.ahk
 #Include %A_ScriptDir%\RemoteDesktopHelper.ahk
+#Include %A_ScriptDir%\WindowBehaviour.ahk
+#Include %A_ScriptDir%\ProgramLauncher.ahk
 
 win_is_desktop(HWND)
 {
@@ -24,7 +26,34 @@ is_equal(a, b, delta = 10)
 ;; map capslock to shift
 Capslock::Esc
 
-;; turn off monitors
+; F13::MsgBox Hello World
+; when on rdp push: ctrl+alt+home twice to get to desktop 1
+^!Home::
+  switchDesktopByNumber(1)
+return
+
+; use ctrl to send curly braces
+^7:: Send {{}
+^0:: Send {}}
+
+; use ctrl to send square bracets
+^8:: Send {[}
+^9:: Send {]}
+
+; switching tabs in nvim using ctrl+shift + j/k 
+#IfWinActive ahk_exe WindowsTerminal.exe 
+^+j:: Send {AltDown}{ShiftDown}j{AltUp}{ShiftUp}}
+^+k:: Send {AltDown}{ShiftDown}k{AltUp}{ShiftUp}}
+return
+; hotkeys/hotstrings for notepad only
+
+;; vim movements alt j + alt k
+; !h::Send,{Left}
+; !j::Send,{Down}
+; !k::Send,{Up}
+; !l::Send,{Right}
+
+;; turn off monitors win + shift + f1
 #^F1::
 Sleep, 200
 SendMessage,0x112,0xF170,2,,Program Manager
