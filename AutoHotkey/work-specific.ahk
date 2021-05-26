@@ -1,5 +1,5 @@
 ;; outlook
-#+o::
+#o::
     DetectHiddenWindows, On 
     IfWinNotExist, ahk_class rctrl_renwnd32
         ShellRun("C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE")
