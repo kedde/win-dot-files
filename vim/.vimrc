@@ -36,8 +36,9 @@ set noswapfile
 " | Plugins using vim-plug
 " -----------------------------------------
 call plug#begin('~/.vim/plugged')
-Plug 'OmniSharp/omnisharp-vim'
+Plug 'OmniSharp/omnisharp-vim', {'for':['cs','csx','cshtml.html','csproj','solution'], 'on': ['OmniSharpInstall']}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'ryanoasis/vim-devicons'
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
@@ -46,9 +47,18 @@ Plug 'sodapopcan/vim-twiggy'
 Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
 Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'dense-analysis/ale'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+
+" fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" nvim telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
 call plug#end()
 
 " If the current buffer has never been saved, it will have no name,
@@ -57,14 +67,25 @@ nnoremap <silent> <C-S> :if expand("%") == ""<CR>browse confirm w<CR>else<CR>con
 " copy paste
 map <C-a> ggVG
 map <C-c> "+y
+vnoremap <C-c> "*y
 " sudo trick w!! - save
 cmap w!! w !sudo tee % >/dev/null
 
 " Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+" map <C-h> <C-w>h
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+" map <C-l> <C-w>l
+"
+" use alt+hjkl to move between split/vsplit panels
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 nmap <leader>ne :NERDTree<cr>
 " git
@@ -87,27 +108,58 @@ nmap <C-A-l> :NERDTreeFocus<cr>
 nmap <F6> :NERDTreeToggle<cr>
 nmap <C-A-d> :NERDTreeToggle<cr>
 
+" open new split panes to right and below
+set splitright
+set splitbelow
+
+
+" no highligh
+nmap <esc><esc> :noh<return>
+" terminal 
+tnoremap <Esc> <C-\><C-n>
+" simulate ctrl-r
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://powershell
+    resize 10
+    endfunction
+    nnoremap <leader>æ :call OpenTerminal()<CR>
+
 " COC
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" -----------------------------
-" ctrl p
-" -----------------------------
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|node_modules|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+" fzf
+" use git ignore 
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
 
+nnoremap <Leader>jf <cmd>lua require'telescope.builtin'.find_files{}<CR>
+nnoremap <Leader>jg <cmd>lua require'telescope.builtin'.git_files{}<CR>
+nnoremap <Leader>jl <cmd>lua require'telescope.builtin'.lsp_references{}<CR>
+nnoremap <Leader>jq <cmd>lua require'telescope.builtin'.quickfix{}<CR>
+" -----------------------------
+" razor
+" -----------------------------
+augroup ft_razor
+	autocmd!
+	autocmd BufRead,BufNewFile *.cshtml setlocal filetype=html tabstop=4 shiftwidth=4
+augroup END
 " -----------------------------
 " OmniSharp
 " -----------------------------
 " filetype indent plugin on
 let g:OmniSharp_server_stdio = 1
-let g:OmniSharp_highlight_types = 3
+let g:OmniSharp_highlight_types = 2
+let g:OmniSharp_selector_ui = 'fzf'    " Use fzf.vim
 let g:ale_linters = { 'cs': ['OmniSharp'] }
 set completeopt=longest,menuone,preview
 
@@ -140,6 +192,7 @@ augroup omnisharp_commands
 
     " Find all code errors/warnings for the current solution and populate the quickfix window
     autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
+
 augroup END
 
 
