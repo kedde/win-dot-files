@@ -71,6 +71,10 @@ vnoremap <C-c> "*y
 " sudo trick w!! - save
 cmap w!! w !sudo tee % >/dev/null
 
+if has('win32')
+  " Don't enable suspend mode on windows
+  nmap <C-z> <Nop>
+endif
 " Easy window navigation
 " map <C-h> <C-w>h
 " map <C-j> <C-w>j
