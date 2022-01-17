@@ -45,10 +45,10 @@ getVsCodeHwnd(){
 FormatTime, CurrentDateYear,, yyyy
 FormatTime, CurrentDateMonth,, MM
 FormatTime, CurrentDateTime,, yyyy-MM-dd
-EnvGet, oneDrive, OneDriveConsumer
-workDirectory := "c:\notes\"
-MsgBox %workDirectory%
-arguments="--title="Note-%CurrentDateTime%"" nvim %workDirectory%\%CurrentDateYear%\%CurrentDateMonth%\%CurrentDateTime%.md"
+; EnvGet, oneDrive, OneDriveConsumer
+workDirectory := "c:\notes"
+file = %workDirectory%\%CurrentDateYear%\%CurrentDateMonth%\%CurrentDateTime%.md
+arguments=-p PowerShellCore --title=Note-%CurrentDateTime% nvim %file%
 ShellRun("wt.exe", arguments, workDirectory)
 return
 
