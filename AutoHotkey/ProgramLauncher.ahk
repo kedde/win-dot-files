@@ -46,9 +46,10 @@ FormatTime, CurrentDateYear,, yyyy
 FormatTime, CurrentDateMonth,, MM
 FormatTime, CurrentDateTime,, yyyy-MM-dd
 ; EnvGet, oneDrive, OneDriveConsumer
-workDirectory := "c:\notes"
+; wt.exe -p PowershellCore --title=note -d c:\notes
+workDirectory = "c:\notes"
 file = %workDirectory%\%CurrentDateYear%\%CurrentDateMonth%\%CurrentDateTime%.md
-arguments=-p PowerShellCore --title=Note-%CurrentDateTime% nvim %file%
+arguments=-p PowerShellCore -d %workDirectory% --title=Note-%CurrentDateTime% nvim %file% 
 ShellRun("wt.exe", arguments, workDirectory)
 return
 
