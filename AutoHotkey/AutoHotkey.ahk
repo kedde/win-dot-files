@@ -1,9 +1,18 @@
+; -------------------------------------------------------------- ; notes
+; --------------------------------------------------------------
+; ! = alt
+; ^ = ctrl
+; + = shift
+; # = lwin|rwin
+;
 #Include %A_ScriptDir%\DesktopSwitcher.ahk
 #Include %A_ScriptDir%\MouseBehaviour.ahk
 #Include %A_ScriptDir%\WindowGrid.ahk
 #Include %A_ScriptDir%\RemoteDesktopHelper.ahk
 #Include %A_ScriptDir%\WindowBehaviour.ahk
 #Include %A_ScriptDir%\ProgramLauncher.ahk
+; #Include %A_ScriptDir%\DrawBorder.ahk does not work right now
+
 
 win_is_desktop(HWND)
 {
@@ -22,11 +31,46 @@ is_equal(a, b, delta = 10)
 ;; Bindings
 ;; ========================================================================================================
 
-;;SetCapsLockState, alwaysoff
-;; map capslock to shift
-Capslock::Esc
+CapsLock::Esc
 
-; F13::MsgBox Hello World
+#If GetKeyState("CapsLock", "P")
+    ; vim movements if holding capslock
+    h::Send,{Left}
+    l::Send,{Right}
+    j::Send,{Down}
+    k::Send,{Up}
+    0::Send, {Home}
+    4::Send, {End}
+    n::Send, #t
+    p::Send, #+t
+    d::Send, {PgDn}
+    u::Send, {PgUp}
+
+    ;u::Send, {Ctrl down}z{Ctrl up}
+
+    ; windows switcher
+    o::
+       SendInput  {LControl Down}{LAlt Down}{Tab}{LControl Up}{LAlt Up}
+    return
+
+    !l::Send, {ALTDOWN}{TAB}{ALTUP}
+    !h::Send, {ALTDOWN}{ShiftDown}{TAB}{ALTUP}
+
+    ; TODO navigate to window right and left
+    +h::MsgBox "capslock shift h"
+    +l::MsgBox "capslock shift l"
+
+    ; TODO media keys
+
+    ; toggle capslock
+    c::
+        GetKeyState, CapsLockState, CapsLock, T
+        if CapsLockState = D
+            SetCapsLockState, AlwaysOff
+        else
+            SetCapsLockState, AlwaysOn
+    return
+#If ; end of #If ; F13::MsgBox Hello World
 ; when on rdp push: ctrl+alt+home twice to get to desktop 1
 ^!Home::
   switchDesktopByNumber(1)
@@ -41,10 +85,10 @@ return
 ^9:: Send {]}
 
 ; switching tabs in nvim using ctrl+shift + j/k 
-#IfWinActive ahk_exe WindowsTerminal.exe 
-^+j:: Send {AltDown}{ShiftDown}j{AltUp}{ShiftUp}}
-^+k:: Send {AltDown}{ShiftDown}k{AltUp}{ShiftUp}}
-return
+; #IfWinActive ahk_exe WindowsTerminal.exe 
+; ^+j:: Send {AltDown}{ShiftDown}j{AltUp}{ShiftUp}}
+; ^+k:: Send {AltDown}{ShiftDown}k{AltUp}{ShiftUp}}
+; return
 ; hotkeys/hotstrings for notepad only
 
 ;; vim movements alt j + alt k
@@ -80,7 +124,7 @@ return
 
 ^!PgDn::Send  {Media_Next}
 ^!PgUp::Send  {Media_Prev}
-^!Home::Send   {Media_Play_Pause}
+; ^!Home::Send   {Media_Play_Pause}
 ; ""CTRL + ALT + Home"  for pause
 
 ; "CTRL + ALT + UP"  for info

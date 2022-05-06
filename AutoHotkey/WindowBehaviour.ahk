@@ -2,6 +2,20 @@
 ; Press Ctrl+Shift+Space again set the window to no longer be always on top.
 ; Source: https://www.howtogeek.com/196958/the-3-best-ways-to-make-a-window-always-on-top-on-windows
 
+
+; win+O open window switcher 
+#o::
+    SendInput  {LControl Down}{LAlt Down}{Tab}{LControl Up}{LAlt Up}
+return 
+
+; vim movement in windows switcher (ctrl+alt+tab) 
+#IfWinExist, ahk_class MultitaskingViewFrame ; Windows 10
+    h::Left
+    l::Right
+    k::Up
+    j::Down
+#IF
+
 ^+SPACE::
 	WinGetTitle, activeWindow, A
 	if IsWindowAlwaysOnTop(activeWindow) {
@@ -22,7 +36,6 @@
 		isWindowAlwaysOnTop := if (windowStyle & 0x8) ? false : true ; 0x8 is WS_EX_TOPMOST.
 		return isWindowAlwaysOnTop
 	}
-
 	HideTrayTip() {
 		TrayTip  ; Attempt to hide it the normal way.
 		if SubStr(A_OSVersion,1,3) = "10." {
