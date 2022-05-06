@@ -1,5 +1,6 @@
 # TODO
 
+* [ ] change capslock:esc mapping to send on capslock keyup event
 * [ ] Change focus of active window to the one to the right 
   - [ ] capslock+win+l change focus to window to the right
   - [ ] capslock+win+h change focus to window to the left
