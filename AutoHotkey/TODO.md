@@ -10,5 +10,6 @@
 
 # DEV
 
-* [ ] refresh autohotkey from nvim - maybe just use autohotkey-reload method to restart it: https://stackoverflow.com/questions/15706534/hotkey-to-restart-autohotkey-script
+* [x] refresh autohotkey from nvim - maybe just use autohotkey-reload method to restart it: https://stackoverflow.com/questions/15706534/hotkey-to-restart-autohotkey-script
+* [ ] caps-lock+alt+l does not working correctly when holding down alt when switching - confuses windows and thinks some keys are still pushed
 * [ ] Logs - possible create a log - view it with get-content --wait

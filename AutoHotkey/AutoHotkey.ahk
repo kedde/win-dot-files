@@ -13,6 +13,13 @@
 #Include %A_ScriptDir%\ProgramLauncher.ahk
 ; #Include %A_ScriptDir%\DrawBorder.ahk does not work right now
 
+^#!r::
+    ; Win Alt Ctrl + R reload autohotkey
+    MsgBox Reloading autohotkey
+    Reload
+return
+
+
 
 win_is_desktop(HWND)
 {
@@ -31,14 +38,19 @@ is_equal(a, b, delta = 10)
 ;; Bindings
 ;; ========================================================================================================
 
-CapsLock::Esc
+; *CapsLock::Esc
+*CapsLock::
+    KeyWait, CapsLock
+    IF A_ThisHotkey = *CapsLock
+	Send, {Blind}{Esc}
+Return
 
 #If GetKeyState("CapsLock", "P")
     ; vim movements if holding capslock
-    h::Send,{Left}
-    l::Send,{Right}
-    j::Send,{Down}
-    k::Send,{Up}
+    h::Send,{blind}{Left}
+    l::Send,{blind}{Right}
+    j::Send,{blind}{Down}
+    k::Send,{blind}{Up}
     0::Send, {Home}
     4::Send, {End}
     n::Send, #t
@@ -50,11 +62,12 @@ CapsLock::Esc
 
     ; windows switcher
     o::
-       SendInput  {LControl Down}{LAlt Down}{Tab}{LControl Up}{LAlt Up}
-    return
-
-    !l::Send, {ALTDOWN}{TAB}{ALTUP}
-    !h::Send, {ALTDOWN}{ShiftDown}{TAB}{ALTUP}
+       SendInput  {LControl Down}{LAlt Down}{Tab}{LControl Up}{LAlt Up} 
+    return 
+    ; !l::Send, {ALTDOWN}{TAB}{ALTUP}
+    ; TODO holding down alt when switching - confuses windows and thinks some keys are still pushed
+    ; !l::Send, {ALT}{TAB}
+    ; !h::Send, {ALTDOWN}{ShiftDown}{TAB}{ALTUP}
 
     ; TODO navigate to window right and left
     +h::MsgBox "capslock shift h"
