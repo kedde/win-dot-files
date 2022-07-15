@@ -4,7 +4,7 @@
 * [x] Change focus of active window to the one to the right 
   - [x] capslock+shift+l change focus to window to the right
   - [x] capslock+shift+h change focus to window to the left
-* [ ] Add border around active window
+* [x] Add border around active window
 * [ ] Grid-issue e.g. when screen in portrait mode e.g. chrome resizes wrongly
 * [ ] Media keys (controls)
 
