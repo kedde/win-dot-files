@@ -1,3 +1,10 @@
+#persistent
+; global CurrentLogLevel := LogLevel.Debug()
+global CurrentLogLevel := LogLevel.Information()
+global Logger := new Logger
+
+; ListVars ; debug variables
+
 ; -------------------------------------------------------------- ; notes
 ; --------------------------------------------------------------
 ; ! = alt
@@ -11,15 +18,8 @@
 #Include %A_ScriptDir%\RemoteDesktopHelper.ahk
 #Include %A_ScriptDir%\WindowBehaviour.ahk
 #Include %A_ScriptDir%\ProgramLauncher.ahk
+#Include %A_ScriptDir%\Logger.ahk
 ; #Include %A_ScriptDir%\DrawBorder.ahk does not work right now
-
-^#!r::
-    ; Win Alt Ctrl + R reload autohotkey
-    MsgBox Reloading autohotkey
-    Reload
-return
-
-
 
 win_is_desktop(HWND)
 {
@@ -28,6 +28,132 @@ win_is_desktop(HWND)
          or win_class ~= "Progman"
          or win_class ~= "SideBar_HTMLHostWindow")  ; sidebar widgets
 }
+
+get_visible_windows()
+{
+    visibleWindowAhkIds := []
+    WinGet windows, List
+    Loop %windows%
+    {
+        id := windows%A_Index%
+        WinGetTitle title, ahk_id %id%
+        WinGet, style, style, ahk_id %id%
+        WinGetClass, wClass, % "ahk_id " id
+        if !(style & 0xC00000) ; if the window doesn't have a title bar
+        {	
+            continue
+        }
+        if (title = "")
+        {
+            continue
+        }
+        visibleWindowAhkIds.Push(id)
+        ; r .= wClass . " " . title . "`n" ; TODO log?
+    }
+    return visibleWindowAhkIds
+}
+
+win_focus(direction){
+    visibleWindowAhkIds := get_visible_windows()
+
+    WinGet, winid ,, A ; <-- need to identify window A = acitive
+    WinGetPos, X, Y,Width,Height, ahk_id %winid%
+
+    activateWindowId := ""
+    deltaX :=  10000000
+    deltaY :=  10000000
+    for index, ahkId in visibleWindowAhkIds ; Enumeration is the recommended approach in most cases.
+    {
+        if (ahkId = winid)
+        {
+            ; dont consider active window
+            WinGetTitle winTitle, ahk_id %winId%
+            logText = active: (%X%,%Y%,%Width%,%Height%) %winTitle%
+            Logger.WriteLog(logText, LogLevel.Debug())
+            continue
+        }
+        WinGetPos, winX, winY,winWidth,winHeight, ahk_id %ahkId%
+        WinGetTitle winTitle, ahk_id %ahkId%
+        
+        isAllowed := false
+
+        ; TODO verify
+        ; When window is full screen X of the active window can be -8 this makes
+        ; moving to the right window wrong
+        ; offset when in fullscreen mode? 10px
+        offset = 10
+        switch direction
+        {
+            case "left":
+                currentDeltaX := abs(X - winX)
+                currentDeltaY := abs(Y - winY)
+                isAllowed := winX < X
+            case "right":
+                currentDeltaX := abs(winX - X)
+                currentDeltaY := abs(Y - winY)
+                isAllowed := winX > X
+            case "up":
+                currentDeltaY := abs(Y - winY)
+                currentDeltaX := abs(X - winX)
+                activeWindowRight := X + Width - offset
+                activeWindowLeft := X
+                isAllowed := winY < Y AND winX < activeWindowRight AND winX >= activeWindowLeft
+            case "down":
+                currentDeltaY := abs(winY - Y)
+                currentDeltaX := abs(X - winX)
+                activeWindowRight := X + Width - offset
+                activeWindowLeft := X
+                isAllowed := winY >= Y AND winX <= activeWindowRight AND winX >= activeWindowLeft
+        }
+
+        WinGetTitle winTitle, ahk_id %ahkId%
+        logText = (%winX%,%winY%, %winWidth%, %winHeight%) currentDeltaX: %currentDeltaX% currentDeltaY %currentDeltaY% %winTitle%
+        Logger.WriteLog(logText, LogLevel.Debug())
+        if (isAllowed AND (currentDeltaX < deltaX OR currentDeltaY < deltaY) )
+        {
+            deltaX := currentDeltaX
+            deltaY := currentDeltaY
+            activateWindowId := ahkId
+            
+            WinGetTitle title, ahk_id %winId%
+            logText =  %winTitle%  "(" %winX% "," %winY% ") " %title%  "(" %X% "," %Y%") deltaX: " %deltaX%
+            ; logText =  "(" %winX% "," %winY% ") and (" %X% "," %Y%") delta: " %delta%
+            ; Logger.WriteLog(logText, LogLevel.Debug())
+        }
+    }
+
+    if  (activateWindowId != "")
+    {
+        WinGetTitle switchToTitle, ahk_id %activateWindowId%
+        switchToLogText = "switching to window with title: " %switchToTitle%
+        Logger.WriteLog(switchToLogText, LogLevel.Debug())
+        Logger.WriteLog("============================================", LogLevel.Debug())
+        WinActivate, ahk_id %activateWindowId%
+    }
+
+}
+
+
+^#!h::
+    win_focus("left")
+    return
+
+^#!l::
+  win_focus("right")
+  return
+
+^#!j::
+  win_focus("down")
+  return
+
+^#!k::
+  win_focus("up")
+  return
+
+IsInitialized(ByRef var) {
+	return &var != &UninitializedVar
+}
+
 
 is_equal(a, b, delta = 10)
 {
@@ -69,9 +195,10 @@ Return
     ; !l::Send, {ALT}{TAB}
     ; !h::Send, {ALTDOWN}{ShiftDown}{TAB}{ALTUP}
 
-    ; TODO navigate to window right and left
-    +h::MsgBox "capslock shift h"
-    +l::MsgBox "capslock shift l"
+    +h::win_focus("left")
+    +l::win_focus("right")
+    +j::win_focus("down")
+    +k::win_focus("up")
 
     ; TODO media keys
 
@@ -85,9 +212,10 @@ Return
     return
 #If ; end of #If ; F13::MsgBox Hello World
 ; when on rdp push: ctrl+alt+home twice to get to desktop 1
+
 ^!Home::
   switchDesktopByNumber(1)
-return
+ return
 
 ; use ctrl to send curly braces
 ^7:: Send {{}
@@ -163,3 +291,9 @@ return
 !F10::WinMaximize, A
 ; Restore
 !F5::WinRestore, A
+
+
+^#!r::
+    ; Win Alt Ctrl + R reload autohotkey
+    MsgBox Reloading autohotkey
+    Reload
