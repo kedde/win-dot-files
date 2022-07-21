@@ -6,7 +6,8 @@ global Logger := new Logger
 
 toggle = 0
 border_thickness = 2
-border_color = FF0000
+; border_color = FF0000
+border_color = 00BFFF
 
 ; ListVars ; debug variables
 
@@ -264,15 +265,18 @@ Return
     h::Send,{blind}{Left}
     l::Send,{blind}{Right}
     j::Send,{blind}{Down}
-    k::Send,{blind}{Up}
+    k::Send, {blind}{Up}
     0::Send, {Home}
     4::Send, {End}
     n::Send, #t
     p::Send, #+t
     d::Send, {PgDn}
     u::Send, {PgUp}
+    F9::Send   {Media_Play_Pause}
+    F10::Send {Volume_Mute}  ; Mute/unmute the master volume.}
+    F11::Send {Volume_Down}
+    F12::Send {Volume_Up}
 
-    ;u::Send, {Ctrl down}z{Ctrl up}
 
     ; windows switcher
     o::
