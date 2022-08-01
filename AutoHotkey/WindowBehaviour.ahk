@@ -9,7 +9,7 @@
 return 
 
 ; vim movement in windows switcher (ctrl+alt+tab) 
-#IfWinExist, ahk_class MultitaskingViewFrame ; Windows 10
+#IfWinExist, ahk_class XamlExplorerHostIslandWindow ; Windows 11
     h::Left
     l::Right
     k::Up
