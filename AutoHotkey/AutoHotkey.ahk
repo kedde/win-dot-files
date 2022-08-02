@@ -266,10 +266,15 @@ Return
     l::Send,{blind}{Right}
     j::Send,{blind}{Down}
     k::Send, {blind}{Up}
+
+    m::WinMaximize, A
+    n::WinRestore, A
+    ,::send, #{left}
+    .::send, #{right}
     0::Send, {Home}
     4::Send, {End}
-    n::Send, #t
-    p::Send, #+t
+    ; n::Send, #t
+    ; p::Send, #+t
     d::Send, {PgDn}
     u::Send, {PgUp}
     F9::Send   {Media_Play_Pause}

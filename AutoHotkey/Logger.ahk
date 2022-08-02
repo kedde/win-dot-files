@@ -45,7 +45,6 @@ class Logger
         this.logLevel := new LogLevel
     }
 
-    ; TODO move log to a seperate file - including the loglevel
     WriteLog(text, logLevel) {
         ; Get-Content C:\Users\[username]\AppData\Local\Temp\Autohotkey\logFile.txt -Wait
         tempFolder = %A_Temp%\Autohotkey
