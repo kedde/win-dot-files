@@ -41,7 +41,7 @@ getVsCodeHwnd(){
 		}
 }
 
-#n::
++#n::
 FormatTime, CurrentDateYear,, yyyy
 FormatTime, CurrentDateMonth,, MM
 FormatTime, CurrentDateTime,, yyyy-MM-dd
