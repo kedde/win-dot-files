@@ -4,10 +4,11 @@ $user = "$username"
 $autoHoykeyConfigFile = "`"$location\AutoHotkey.ahk`""
 write-host $user 'AUTO' $autoHoykeyConfigFile
 
+# \scoop\apps\autohotkey\current\AutoHotkeyU64.exe
 $executable = scoop which autohotkey
 Write-host "setting the executable to $executable"
 # "C:\Program Files\AutoHotkey\AutoHotkey.exe"
-$action = New-ScheduledTaskAction -Execute '$executable' -Argument $autoHoykeyConfigFile
+$action = New-ScheduledTaskAction -Execute $executable -Argument $autoHoykeyConfigFile
 
 # $trigger =  New-ScheduledTaskTrigger -Daily -At 9am
 
