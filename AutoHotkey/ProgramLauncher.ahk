@@ -49,7 +49,7 @@ FormatTime, CurrentDateTime,, yyyy-MM-dd
 ; wt.exe -p PowershellCore --title=note -d c:\notes
 workDirectory = "c:\notes"
 file = %workDirectory%\%CurrentDateYear%\%CurrentDateMonth%\%CurrentDateTime%.md
-arguments=-p PowerShellCore -d %workDirectory% --tabColor="#8bff33" --title=Note-%CurrentDateTime% nvim %file% 
+arguments=-p PowerShell -d %workDirectory% --tabColor="#8bff33" --title=Note-%CurrentDateTime% nvim %file% 
 ShellRun("wt.exe", arguments, workDirectory)
 return
 
