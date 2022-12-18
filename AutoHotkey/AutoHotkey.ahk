@@ -273,6 +273,8 @@ Return
     .::send, #{right}
     0::Send, {Home}
     4::Send, {End}
+
+    enter::Send #+{Left} ; move to next monitor
     ; n::Send, #t
     ; p::Send, #+t
     d::Send, {PgDn}
