@@ -274,7 +274,7 @@ Return
     0::Send, {Home}
     4::Send, {End}
 
-    enter::Send #+{Left} ; move to next monitor
+    enter::Send #+{Left} ; move current window to next monitor
     ; n::Send, #t
     ; p::Send, #+t
     d::Send, {PgDn}
@@ -328,6 +328,10 @@ Return
     +l::win_focus("right")
     +j::win_focus("down")
     +k::win_focus("up")
+
+    ; capslock + alt + h/l switch desktop left and right
+    !h::send, ^#{left}
+    !l::send, ^#{right}
 
     ; TODO media keys
 
