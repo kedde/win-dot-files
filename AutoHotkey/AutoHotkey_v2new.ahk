@@ -308,6 +308,7 @@ is_equal(a, b, delta := 10)
     enter::    Send("#+{Left}") ; move current window to next monitor
     ; n::Send, #t
     ; p::Send, #+t
+    w::    Send("^{Right}")
     d::    Send("{PgDn}")
     u::    Send("{PgUp}")
     F9::    Send("{Media_Play_Pause}")
